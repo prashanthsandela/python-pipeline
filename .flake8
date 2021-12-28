@@ -1,0 +1,3 @@
+[flake8]
+exclude=
+    pipeline/__init__.py
