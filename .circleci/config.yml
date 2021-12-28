@@ -1,21 +1,20 @@
-version: 2.1
-
-
+version: 2
 jobs:
-  build-and-test: 
+  build:
     docker:
-      - image: python:3.9.0
+      - image: circleci/python:3.9.0
     steps:
       - checkout
-      - install:
-          command: 
-            - make setup
-            - make install
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - build-and-test
+      - restore-cache:
+          keys:
+          - virtual-env
+      - run:
+          command: |
+            make setup
+            make install
+            make test
+            make lint-test
+      - save_cache:
+          key: virtual-env
+          paths:
+          - .venv
