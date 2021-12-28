@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.9.0
+    resource_class: small
     steps:
       - checkout
       - restore-cache:
