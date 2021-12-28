@@ -9,17 +9,15 @@ from pipeline.operators import InputOperator, Operator
 logger = logging.getLogger(__name__)
 
 
-class Pipeline:
-    pass
-
-
 class Stream:
     def __init__(
         self,
         name: str,
         operator: Operator,
         workers: int = 1,
-        threadType: Union[ThreadPoolExecutor, ProcessPoolExecutor] = ThreadPoolExecutor,
+        threadType: Union[
+            ThreadPoolExecutor, ProcessPoolExecutor
+        ] = ThreadPoolExecutor,
     ) -> None:
         """Create a stream to process.
 
@@ -27,13 +25,17 @@ class Stream:
             name (str): Name of the stream operator.
             operator (Operator): Operator object.
             workers (int, optional): Number of workers. Defaults to 1.
-            threadType (Union[ThreadPoolExecutor, ProcessPoolExecutor], optional):
-                Type of thread executor. Defaults to ThreadPoolExecutor. Not implemented.
+            threadType (Union[ThreadPoolExecutor, ProcessPoolExecutor],
+                optional):
+                Type of thread executor. Defaults to ThreadPoolExecutor.
+                Not implemented.
         """
         self.name = name
         self.operator = operator
         self.workers = workers
-        self.executor: Union[ThreadPoolExecutor, ProcessPoolExecutor] = threadType
+        self.executor: Union[
+            ThreadPoolExecutor, ProcessPoolExecutor
+        ] = threadType
 
     def validate(self):
         """Validate if current object is a valid stream.
@@ -84,11 +86,13 @@ class Pipeline:
         """
         stream_names = {s.name for s in self.streams}
         if len(stream_names) != len(self.streams):
-            raise PipelineException("Name of streams in pipeline should be unique.")
+            raise PipelineException(
+                "Name of streams in pipeline should be unique."
+            )
 
         if len(self.streams) < 2:
             raise PipelineException(
-                f"At least 2 streams are required to start a pipeline."
+                "At least 2 streams are required to start a pipeline."
             )
 
         # Validate input stream.

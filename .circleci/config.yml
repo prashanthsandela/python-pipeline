@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.9.0
+    resource_class: small
+    steps:
+      - checkout
+      - restore-cache:
+          keys:
+          - virtual-env
+      - run:
+          command: |
+            make setup
+            make install
+            make test
+            make lint-test
+      - save_cache:
+          key: virtual-env
+          paths:
+          - .venv

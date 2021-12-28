@@ -4,7 +4,7 @@ from pipeline.exception import PipelineException
 from pipeline.operators import (
     FileInputOperator,
     InputOperator,
-    InputOutptOperator,
+    InputOutputOperator,
     Operator,
 )
 from pipeline.pipeline import Pipeline
@@ -29,7 +29,7 @@ def test_pipeline_invalid1():
     assert "At least 2 streams are required to" in str(ex)
 
 
-class FooInputOutputOperator(InputOutptOperator):
+class FooInputOutputOperator(InputOutputOperator):
     def process(self):
         pass
 
